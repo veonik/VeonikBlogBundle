@@ -1,0 +1,51 @@
+parameters:
+
+services:
+  veonik.twig_extension.simple_cms:
+    class: Veonik\Bundle\BlogBundle\TwigExtension\SimpleCmsExtension
+    arguments: [ @doctrine.orm.entity_manager ]
+    tags:
+      - { name: twig.extension }
+
+  veonik.twig_extension.post:
+    class: Veonik\Bundle\BlogBundle\TwigExtension\PostExtension
+    calls:
+      - [ setRequest, [ "@?request=" ]]
+    tags:
+      - { name: twig.extension }
+      
+  veonik.twig_extension.analytics:
+    class: Veonik\Bundle\BlogBundle\TwigExtension\AnalyticsExtension
+    arguments: [ %tracking_id% ]
+    tags:
+      - { name: twig.extension }
+
+  veonik.form.tag_type:
+    class: Veonik\Bundle\BlogBundle\Form\Select2TagType
+    arguments: [ @doctrine.orm.entity_manager ]
+    tags:
+      - { name: form.type, alias: select2_tag }
+
+  veonik.form.menu_type:
+    class: Veonik\Bundle\BlogBundle\Form\MenuType
+    arguments: [ @veonik.menu_builder.registry ]
+    tags:
+      - { name: form.type, alias: menu }
+
+  veonik.menu_builder.simple_menu:
+    class: Veonik\Bundle\BlogBundle\Model\MenuBuilder\SimpleMenuBuilder
+
+  veonik.menu_builder.main_nav:
+    class: Veonik\Bundle\BlogBundle\Model\MenuBuilder\MainNavMenuBuilder
+
+  veonik.menu_builder.registry:
+    class: Veonik\Bundle\BlogBundle\Model\MenuBuilder\MenuBuilderRegistry
+    calls:
+      - [ registerBuilder, [ @veonik.menu_builder.simple_menu ] ]
+      - [ registerBuilder, [ @veonik.menu_builder.main_nav ] ]
+
+  veonik.entity.subscriber.menu_post_load:
+    class: Veonik\Bundle\BlogBundle\Entity\EventSubscriber\MenuPostLoadSubscriber
+    arguments: [ @veonik.menu_builder.registry ]
+    tags:
+      - { name: doctrine.event_subscriber }

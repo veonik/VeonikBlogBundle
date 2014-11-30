@@ -1,0 +1,19 @@
+{
+  "name": "veonik/blog-bundle",
+  "description": "Provides blogging functionality for Symfony 2 applications",
+  "type": "symfony-bundle",
+  "license": "MIT",
+  "require": {
+    "php": ">=5.3.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Veonik\\Bundle\\BlogBundle\\": "src/"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0-dev"
+    }
+  }
+}

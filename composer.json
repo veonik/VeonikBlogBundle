@@ -7,7 +7,7 @@
     "php": ">=5.3.3",
     "orkestra/application-bundle": "1.0.x-dev",
     "jms/security-extra-bundle": "~1.5",
-    "trsteel/ckeditor-bundle": "~1.4"
+    "trsteel/ckeditor-bundle": "~1.5"
   },
   "autoload": {
     "psr-4": {

@@ -28,14 +28,4 @@ class VeonikBlogExtension extends Extension implements PrependExtensionInterface
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
     }
-
-    /**
-     * Allow an extension to prepend the extension configurations.
-     *
-     * @param ContainerBuilder $container
-     */
-    public function prepend(ContainerBuilder $container)
-    {
-        $container->setParameter('app.version', \AppKernel::VERSION);
-    }
 }

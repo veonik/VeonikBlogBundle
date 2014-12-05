@@ -1,15 +1,14 @@
 <div class="right-side social">
     <h4>Social</h4>
     <a title="Feed" href="{{ path('feed') }}" class="label label-primary"><span class="icon-rss"></span></a>
-    <a title="Github" href="https://github.com/tyler-sommer" class="label label-primary"><span class="icon-github"></span></a>
-    <a title="Twitter" href="https://twitter.com/syncreticidiot" class="label label-primary"><span class="icon-twitter"></span></a>
-    <a title="Resume" href="http://veonik.pro" class="label label-primary"><span class="icon-bookmark"></span></a>
+    <a title="Github" href="https://github.com" class="label label-primary"><span class="icon-github"></span></a>
+    <a title="Twitter" href="https://twitter.com" class="label label-primary"><span class="icon-twitter"></span></a>
 </div>
 <div class="right-side search">
     <h4>Search</h4>
     <div>
         <form method="post" action="{{ path('search') }}" class="form-inline">
-            {{ form_widget(form.search, { attr: { class: 'input-medium', placeholder: 'some words...' } }) }} <button class="btn btn-primary">GO</button>
+            {{ form_widget(form.search, { attr: { class: 'input-medium', placeholder: 'Enter search terms' } }) }} <button class="btn btn-primary">GO</button>
             <div class="hidden">
                 {{ form_rest(form) }}
             </div>

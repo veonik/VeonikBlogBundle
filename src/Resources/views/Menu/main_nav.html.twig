@@ -1,5 +1,5 @@
 {% spaceless %}
-<ul class="pull-right nav">
+<ul class="pull-right nav navbar-nav">
     {% for item in menu.definition %}
         {% if not item.role|default or is_granted(item.role) %}
             {% if not item.not_role|default or not is_granted(item.not_role) %}

@@ -100,6 +100,10 @@ label, input, button, select, textarea {
   color: white;
 }
 
+.date-posted .year {
+  font-size: 12px;
+}
+
 .date-posted .day {
   font-size: 20px;
   background-color: #dadada;

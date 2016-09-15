@@ -28,7 +28,7 @@ use Orkestra\Common\Entity\AbstractEntity;
  *   "Page" = "Veonik\Bundle\BlogBundle\Entity\Page"
  * })
  */
-abstract class AbstractPost extends AbstractEntity
+abstract class AbstractPost extends AbstractEntity implements \JsonSerializable 
 {
     /**
      * @var string
@@ -285,5 +285,26 @@ abstract class AbstractPost extends AbstractEntity
     public function getEnableComments()
     {
         return $this->enableComments;
+    }
+
+    /**
+     * @return array
+     */
+    public function jsonSerialize()
+    {
+        return array(
+            'type' => $this instanceof Post ? 'post' : 'page',
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'body' => $this->body,
+            'date_published' => $this->datePublished->format('Y-m-d'),
+            'author' => (string) $this->author,
+            'tags' => array_map(function(Tag $tag) {
+                return $tag->getName();
+            }, $this->tags->toArray()),
+            'categories' => array_map(function(Category $category) {
+                return $category->getName();
+            }, $this->categories->toArray())
+        );
     }
 }

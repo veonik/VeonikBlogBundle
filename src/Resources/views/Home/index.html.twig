@@ -20,6 +20,7 @@
 {% endjavascripts %}
 {% endblock %}
 
+{% set year = "now"|date('Y') %}
 {% if entities|length == 1 %}
 {% set title = entities[0].title %}
 {% endif %}
@@ -30,7 +31,7 @@
 {% if entity is post %}
     <div class="col-md-1">
         <div class="date-posted">
-            <p class="month">{{ entity.datePublished.toUserTime.format('M') }}</p>
+            <p class="month">{{ entity.datePublished.toUserTime.format('M') }} {% if entity.datePublished.toUserTime.format('Y') != year %}<span class="year">'{% set year = entity.datePublished.toUserTime.format('y') %}{{ year }}</span>{% endif %}</p>
             <p class="day">{{ entity.datePublished.toUserTime.format('d') }}</p>
         </div>
     </div>

@@ -41,7 +41,7 @@ class SearchController extends Controller
     }
 
     /**
-     * @Route("/search/category/{name}", name="search_category")
+     * @Route("/search/category/{name}", name="search_category", requirements={"name":".*"})
      * @Template("VeonikBlogBundle:Search:index.html.twig")
      */
     public function searchCategoryAction($name)
@@ -58,7 +58,7 @@ class SearchController extends Controller
     }
 
     /**
-     * @Route("/search/tag/{name}", name="search_tag")
+     * @Route("/search/tag/{name}", name="search_tag", requirements={"name":".*"})
      * @Template("VeonikBlogBundle:Search:index.html.twig")
      */
     public function searchTagAction($name)

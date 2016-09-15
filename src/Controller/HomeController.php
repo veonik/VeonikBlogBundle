@@ -78,11 +78,7 @@ class HomeController extends Controller
     public function rightSideAction()
     {
         $posts = $this->getRepository('VeonikBlogBundle:Post')->createQueryBuilder('p')
-            ->where('p.datePublished >= :dateStart')
-            ->andWhere('p.active = true')
-            ->setParameters(array(
-                'dateStart' => new \DateTime('-1 year')
-            ))
+            ->where('p.active = true')
             ->orderBy('p.datePublished', 'DESC')
             ->getQuery()->setMaxResults(10)->getResult();
         $tags = $this->getRepository('VeonikBlogBundle:Tag')->getSidebarData();

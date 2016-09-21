@@ -118,7 +118,7 @@ abstract class AbstractPost extends AbstractEntity implements \JsonSerializable
         $this->comments      = new ArrayCollection();
         $this->tags          = new ArrayCollection();
         $this->categories    = new ArrayCollection();
-        $this->datePublished = new NullDateTime();
+        $this->datePublished = new DateTime();
         $this->active        = false;
     }
 
@@ -127,16 +127,7 @@ abstract class AbstractPost extends AbstractEntity implements \JsonSerializable
      */
     public function setActive($active)
     {
-        if ($active) {
-            $this->active = true;
-            if (!$this->datePublished || $this->datePublished instanceof NullDateTime) {
-                $this->datePublished = new DateTime();
-            }
-
-        } else {
-            $this->active = false;
-            $this->datePublished = new NullDateTime();
-        }
+        $this->active = (bool) $active;
     }
 
     /**
@@ -145,9 +136,6 @@ abstract class AbstractPost extends AbstractEntity implements \JsonSerializable
     public function setDatePublished(\DateTime $datePublished = null)
     {
         $this->datePublished = $datePublished ?: new NullDateTime();
-        if (!$datePublished) {
-            $this->active = false;
-        }
     }
 
     /**

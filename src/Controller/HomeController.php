@@ -50,6 +50,49 @@ class HomeController extends Controller
     }
 
     /**
+     * Outputs a file
+     *
+     * @Route("/file/{id}/view", name="file_view")
+     */
+    public function viewAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        /** @var $file \Orkestra\Bundle\ApplicationBundle\Entity\File */
+        $file = $em->find('Orkestra\Bundle\ApplicationBundle\Entity\File', $id);
+
+        if (!$file || !file_exists($file->getPath())) {
+            throw $this->createNotFoundException('Unable to locate File');
+        }
+
+        $securityContext = $this->get('security.context');
+
+        foreach ($file->getGroups() as $group) {
+            if (!$securityContext->isGranted($group->getRole())) {
+                throw $this->createNotFoundException('Unable to locate File');
+            }
+        }
+
+        $response = new Response();
+        $response->setLastModified(new \DateTime('@' . filemtime($file->getPath())));
+        $response->setPublic();
+        if (($hash = $file->getMd5()) !== '') {
+            $response->setEtag($hash);
+        }
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        $response->setContent($file->getContent());
+        $response->headers->add(array(
+            'Content-Type' => $file->getMimeType(),
+        ));
+
+        return $response;
+    }
+
+    /**
      * @Route("/", name="home", defaults={"slug"=null})
      * @Route("/{slug}", name="page_or_post", requirements={"slug"=".+"})
      */
@@ -110,48 +153,5 @@ class HomeController extends Controller
         $cache->save('right_side_rendered', $content);
 
         return new Response($content);
-    }
-
-    /**
-     * Outputs a file
-     *
-     * @Route("/file/{id}/view", name="file_view")
-     */
-    public function viewAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        /** @var $file \Orkestra\Bundle\ApplicationBundle\Entity\File */
-        $file = $em->find('Orkestra\Bundle\ApplicationBundle\Entity\File', $id);
-
-        if (!$file || !file_exists($file->getPath())) {
-            throw $this->createNotFoundException('Unable to locate File');
-        }
-
-        $securityContext = $this->get('security.context');
-
-        foreach ($file->getGroups() as $group) {
-            if (!$securityContext->isGranted($group->getRole())) {
-                throw $this->createNotFoundException('Unable to locate File');
-            }
-        }
-
-        $response = new Response();
-        $response->setLastModified(new \DateTime('@' . filemtime($file->getPath())));
-        $response->setPublic();
-        if (($hash = $file->getMd5()) !== '') {
-            $response->setEtag($hash);
-        }
-
-        if ($response->isNotModified($request)) {
-            return $response;
-        }
-
-        $response->setContent($file->getContent());
-        $response->headers->add(array(
-                'Content-Type' => $file->getMimeType(),
-            ));
-
-        return $response;
     }
 }

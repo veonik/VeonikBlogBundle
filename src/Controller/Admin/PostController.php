@@ -74,7 +74,7 @@ class PostController extends Controller
      * @Route("/{id}/preview", name="manage_post_preview")
      * @Template("VeonikBlogBundle:Home:index.html.twig")
      */
-    public function previewAction($id)
+    public function previewAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -83,6 +83,8 @@ class PostController extends Controller
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Post entity.');
         }
+
+        $request->attributes->set('slug', $entity->getSlug());
 
         return array(
             'entities'      => array($entity),

@@ -58,13 +58,17 @@ class SimpleCmsExtension extends \Twig_Extension
     /**
      * Loads a Menu entity, given its name
      *
-     * @param string $name
+     * @param string|Menu $name
      *
      * @return Menu
      * @throws \RuntimeException
      */
     private function loadMenu($name)
     {
+        if ($name instanceof Menu) {
+            return $name;
+        }
+
         $menu = $this->menuRepository->findOneBy(array('name' => $name));
 
         if (!$menu) {

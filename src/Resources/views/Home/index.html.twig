@@ -38,10 +38,11 @@
 {% endif %}
     <div class="{{ entity is post ? 'col-md-11' : 'col-md-12' }}">
     {% if loop.first %}
-<h1>{{ entity.title }}</h1>
+<h1>{{ entity.title }}{% if entity.hasMenu %}{{ render_menu(entity.menu) }}{% endif %}</h1>
     {% else %}
-<h2>{{ entity.title }}</h2>
+<h2>{{ entity.title }}{% if entity.hasMenu %}{{ render_menu(entity.menu) }}{% endif %}</h2>
     {% endif %}
+        <div style="clear: both"></div>
 <div class="copy-container">
 {{ render_twig(entity.body, { post: entity }) }}
 </div>

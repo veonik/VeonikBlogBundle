@@ -21,12 +21,18 @@
             <td>{% if entity.dateModified %}{{ entity.dateModified }}{% endif %}</td>
             <td>{% if entity.dateCreated %}{{ entity.dateCreated }}{% endif %}</td>
             <td>
-                <a class="btn btn-mini" href="{{ path('manage_page_edit', { 'id': entity.id }) }}">EDIT</a>
+                <div class="btn-group">
+                    <a class="btn btn-mini btn-primary" href="{{ path('manage_page_edit', { 'id': entity.id }) }}">Edit</a>
+                    <a class="btn btn-mini" href="{{ path('manage_page_preview', { 'id': entity.id }) }}">Preview</a>
+                </div>
             </td>
         </tr>
     {% endfor %}
     </tbody>
 </table>
+{% endblock %}
+
+{% block page_controls %}
 <a class="btn btn-primary" href="{{ path('manage_page_new') }}">
     New Page
 </a>

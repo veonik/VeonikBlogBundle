@@ -38,11 +38,15 @@ services:
   veonik.menu_builder.main_nav:
     class: Veonik\Bundle\BlogBundle\Model\MenuBuilder\MainNavMenuBuilder
 
+  veonik.menu_builder.header:
+    class: Veonik\Bundle\BlogBundle\Model\MenuBuilder\HeaderMenuBuilder
+
   veonik.menu_builder.registry:
     class: Veonik\Bundle\BlogBundle\Model\MenuBuilder\MenuBuilderRegistry
     calls:
       - [ registerBuilder, [ @veonik.menu_builder.simple_menu ] ]
       - [ registerBuilder, [ @veonik.menu_builder.main_nav ] ]
+      - [ registerBuilder, [ @veonik.menu_builder.header ] ]
 
   veonik.entity.subscriber.menu_post_load:
     class: Veonik\Bundle\BlogBundle\Entity\EventSubscriber\MenuPostLoadSubscriber

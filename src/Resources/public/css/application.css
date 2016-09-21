@@ -25,6 +25,37 @@ label, input, button, select, textarea {
   margin-top: 0;
 }
 
+h1 .header-nav {
+  height: 55px;
+  line-height: 55px;
+}
+
+h1 .header-nav li a {
+  height: 55px;
+  line-height: 55px;
+  padding: 0 15px;
+}
+
+h1 .header-nav li a:hover, h1 .header-nav li.active {
+  color: #333333;
+}
+
+h1 .header-nav li:hover, h1 .header-nav li.active {
+  border-bottom: 3px solid #0088cc;
+}
+
+.header-nav {
+  height: 100%;
+  font-size: 10pt;
+  margin-top: -6px;
+  border-bottom: 2px solid #999999;
+}
+
+.header-nav li {
+  float: left;
+  display: inline-block;
+}
+
 .spacer {
   clear: both;
   height: 15px;
@@ -81,12 +112,22 @@ label, input, button, select, textarea {
 
 #main {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #main .date-posted {
   border-top: 5px solid #0088cc;
   margin-top: 10px;
   text-align: center;
+}
+
+#main .upper-page-controls {
+  text-align: right;
+  margin-top: 15px;
+}
+
+#main .lower-page-controls {
+  text-align: right;
 }
 
 .date-posted p {
@@ -145,7 +186,6 @@ label, input, button, select, textarea {
   background-color: #dadada;
   color: #333;
 }
-
 
 .post-spacer {
   height: 50px;
@@ -285,6 +325,19 @@ div.right-side {
 @media only screen and (max-width: 900px) {
   .navbar .nav li.has-icon span {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 630px) {
+  ul.header-nav li.has-icon span {
+    display: none;
+  }
+
+  ul.header-nav {
+    clear: both;
+    display: block;
+    width: 100%;
+    margin-top: 10px;
   }
 }
 

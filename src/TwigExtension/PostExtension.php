@@ -59,8 +59,8 @@ class PostExtension extends \Twig_Extension
     public function getTests()
     {
         return array(
-            new \Twig_SimpleTest('post', function (AbstractPost $post) { return $post instanceof Post; }),
-            new \Twig_SimpleTest('page', function (AbstractPost $post) { return $post instanceof Page; })
+            new \Twig_SimpleTest('post', function ($post) { return $post instanceof Post; }),
+            new \Twig_SimpleTest('page', function ($post) { return $post instanceof Page; })
         );
     }
 

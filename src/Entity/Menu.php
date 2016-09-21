@@ -48,6 +48,14 @@ class Menu extends AbstractEntity
     private $builder;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
+
+    /**
      * @param string $definition
      */
     public function setDefinition($definition)

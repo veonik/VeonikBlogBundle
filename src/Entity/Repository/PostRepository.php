@@ -104,6 +104,7 @@ class PostRepository extends EntityRepository
             ->andWhere('p.active = true')
             ->orderBy('p.datePublished', 'DESC')
             ->getQuery()
+            ->useResultCache(true, 3600, 'posts_home')
             ->setMaxResults(5)
             ->getResult();
     }

@@ -1,6 +1,6 @@
 {% extends 'VeonikBlogBundle:Admin:base.html.twig' %}
 
-{% set title = entity.title ~ ' - Page Summary' %}
+{% set title = 'Page: ' ~ entity.title %}
 
 {% block content %}
 <table class="table summary">
@@ -31,9 +31,11 @@
         </tr>
     </tbody>
 </table>
+{% endblock %}
 
-<p class="form-buttons">
-  <a href="{{ path('manage_page_edit', { 'id': entity.id }) }}"><button class="btn">Edit Page</button></a> &nbsp;
-  <a href="{{ path('manage_page_preview', { id: entity.id }) }}" target="_blank">Preview</a>
-</p>
+{% block page_controls %}
+    <div class="btn-group">
+        <a class="btn btn-primary" href="{{ path('manage_page_edit', { 'id': entity.id }) }}">Edit Page</a>
+        <a class="btn" href="{{ path('manage_page_preview', { id: entity.id }) }}" target="_blank">Preview</a>
+    </div>
 {% endblock %}

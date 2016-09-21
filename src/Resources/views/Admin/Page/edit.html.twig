@@ -8,6 +8,7 @@
         {{ form_errors(form) }}
         {{ form_row(form.title) }}
         {{ form_row(form.slug, { attr: { 'data-uri': path('manage_post_is_slug_unique') } }) }}
+        {{ form_row(form.menu) }}
         {{ form_row(form.tags) }}
         {{ form_row(form.categories) }}
         {{ form_row(form.author) }}

@@ -1,9 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block container %}
-<div class="row-fluid">
-    <div class="span9 offset2">
+<div class="row-fluid content-header">
+    <div class="span8 offset2">
         <h3>{{ title }}</h3>
+    </div>
+    <div class="span2 upper-page-controls">
+        {% block page_controls %}
+        {% endblock %}
     </div>
 </div>
 <div class="row-fluid">
@@ -46,6 +50,11 @@
         {% endif %}
         {% block content %}
         {% endblock %}
+    </div>
+</div>
+<div class="row-fluid content-footer">
+    <div class="offset10 span2 lower-page-controls">
+        {{ block('page_controls') }}
     </div>
 </div>
 {% endblock %}

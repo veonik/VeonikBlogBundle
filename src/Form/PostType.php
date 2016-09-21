@@ -28,6 +28,12 @@ class PostType extends AbstractType
                             ->where('a.active = true');
                     }
                 ))
+            ->add('author', null, array(
+                'query_builder' => function (EntityRepository $entityRepository) {
+                    return $entityRepository->createQueryBuilder('a')
+                        ->where('a.active = true');
+                }
+            ))
             ->add('enableComments', 'checkbox', array('required' => false))
             ->add('active', null, array('required' => false, 'label' => 'Publish'))
             ->add('datePublished', 'date', array('required' => false, 'format' => 'MM/dd/yyyy', 'widget' => 'single_text'))

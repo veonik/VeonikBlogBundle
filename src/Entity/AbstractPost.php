@@ -81,6 +81,14 @@ abstract class AbstractPost extends AbstractEntity implements \JsonSerializable
     protected $author;
 
     /**
+     * @var \Veonik\Bundle\BlogBundle\Entity\Menu
+     *
+     * @ORM\ManyToOne(targetEntity="Veonik\Bundle\BlogBundle\Entity\Menu", cascade={"persist"})
+     * @ORM\JoinColumn(name="menu_id", referencedColumnName="id")
+     */
+    protected $menu;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Veonik\Bundle\BlogBundle\Entity\Tag", cascade={"persist"})
@@ -285,6 +293,30 @@ abstract class AbstractPost extends AbstractEntity implements \JsonSerializable
     public function getEnableComments()
     {
         return $this->enableComments;
+    }
+
+    /**
+     * @param Menu $menu
+     */
+    public function setMenu(Menu $menu)
+    {
+        $this->menu = $menu;
+    }
+
+    /**
+     * @return Menu
+     */
+    public function getMenu()
+    {
+        return $this->menu;
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasMenu()
+    {
+        return $this->menu !== null;
     }
 
     /**

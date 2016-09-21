@@ -31,10 +31,10 @@
         </tr>
     </tbody>
 </table>
+{% endblock %}
 
-<p class="form-buttons">
-  <a href="{{ path('manage_menu_edit', { 'id': entity.id }) }}">
-    <button class="btn">Edit Menu</button>
-  </a>
-</p>
+{% block page_controls %}
+    <div class="btn-group">
+        <a class="btn btn-primary" href="{{ path('manage_menu_edit', { 'id': entity.id }) }}">Edit Menu</a>
+    </div>
 {% endblock %}

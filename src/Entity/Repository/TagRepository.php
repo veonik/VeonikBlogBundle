@@ -43,6 +43,7 @@ class TagRepository extends EntityRepository
             ->where('t.id IN (:ids)')
             ->setParameter('ids', $results)
             ->getQuery()
+            ->useResultCache(true, 3600, 'sidebar_tags' . $this->_entityName)
             ->getResult();
     }
 }

@@ -1,3 +1,8 @@
+veonik_manage:
+    resource: "@VeonikBlogBundle/Controller/Admin/"
+    type:     annotation
+    prefix:   /
+
 veonik_search:
     resource: "@VeonikBlogBundle/Controller/SearchController.php"
     type:     annotation
@@ -10,10 +15,5 @@ veonik_comment:
 
 veonik_home:
     resource: "@VeonikBlogBundle/Controller/HomeController.php"
-    type:     annotation
-    prefix:   /
-
-veonik_manage:
-    resource: "@VeonikBlogBundle/Controller/Admin/"
     type:     annotation
     prefix:   /

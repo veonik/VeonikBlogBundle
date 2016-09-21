@@ -1,6 +1,16 @@
 parameters:
+  veonik.cache_dir: "%kernel.cache_dir%/veonikblog"
+  veonik.result_cache_dir: "%veonik.cache_dir%/results"
 
 services:
+  veonik.file_cache.default:
+    class: Doctrine\Common\Cache\FilesystemCache
+    arguments: [ "%veonik.cache_dir%" ]
+
+  veonik.file_cache.result:
+    class: Doctrine\Common\Cache\FilesystemCache
+    arguments: [ "%veonik.result_cache_dir%" ]
+
   veonik.twig_extension.simple_cms:
     class: Veonik\Bundle\BlogBundle\TwigExtension\SimpleCmsExtension
     arguments: [ @doctrine.orm.entity_manager ]
@@ -51,5 +61,11 @@ services:
   veonik.entity.subscriber.menu_post_load:
     class: Veonik\Bundle\BlogBundle\Entity\EventSubscriber\MenuPostLoadSubscriber
     arguments: [ @veonik.menu_builder.registry ]
+    tags:
+      - { name: doctrine.event_subscriber }
+
+  veonik.entity.subscriber.invalidate_cache:
+    class: Veonik\Bundle\BlogBundle\Entity\EventSubscriber\CacheInvalidationSubscriber
+    arguments: [ @filesystem, "%veonik.result_cache_dir%" ]
     tags:
       - { name: doctrine.event_subscriber }

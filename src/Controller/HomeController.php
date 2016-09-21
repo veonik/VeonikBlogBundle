@@ -51,7 +51,7 @@ class HomeController extends Controller
 
     /**
      * @Route("/", name="home", defaults={"slug"=null})
-     * @Route("/{slug}", name="page_or_post")
+     * @Route("/{slug}", name="page_or_post", requirements={"slug"=".+"})
      */
     public function indexAction($slug)
     {
@@ -80,7 +80,7 @@ class HomeController extends Controller
         $posts = $this->getRepository('VeonikBlogBundle:Post')->createQueryBuilder('p')
             ->where('p.active = true')
             ->orderBy('p.datePublished', 'DESC')
-            ->getQuery()->setMaxResults(10)->getResult();
+            ->getQuery()->useResultCache(true, 3600, 'right_side_posts')->setMaxResults(10)->getResult();
         $tags = $this->getRepository('VeonikBlogBundle:Tag')->getSidebarData();
         $categories = $this->getRepository('VeonikBlogBundle:Category')->getSidebarData();
         $form = $this->createForm(new SearchType());

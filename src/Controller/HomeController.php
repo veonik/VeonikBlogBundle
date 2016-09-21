@@ -77,6 +77,11 @@ class HomeController extends Controller
      */
     public function rightSideAction()
     {
+        $cache = $this->get('veonik.file_cache.result');
+        if ($cache->contains('right_side_rendered')) {
+            return new Response($cache->fetch('right_side_rendered'));
+        }
+
         $posts = $this->getRepository('VeonikBlogBundle:Post')->createQueryBuilder('p')
             ->where('p.active = true')
             ->orderBy('p.datePublished', 'DESC')
@@ -95,12 +100,16 @@ class HomeController extends Controller
             $archive[$month][] = $post;
         }
 
-        return array(
+        $content = $this->renderView('@VeonikBlog/Home/rightSide.html.twig', array(
             'archive' => $archive,
             'tags' => $tags,
             'categories' => $categories,
             'form' => $form->createView()
-        );
+        ));
+
+        $cache->save('right_side_rendered', $content);
+
+        return new Response($content);
     }
 
     /**

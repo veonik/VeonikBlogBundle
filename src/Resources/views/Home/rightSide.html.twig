@@ -8,9 +8,7 @@
     <h4>Search</h4>
     <div>
         <form method="post" action="{{ path('search') }}" class="form-inline">
-            <div class="form-group">
-                {{ form_widget(form.search, { attr: { class: 'form-control', placeholder: 'Enter search terms' } }) }} <button class="btn btn-primary">GO</button>
-            </div>
+            {{ form_widget(form.search, { attr: { class: 'input-medium', placeholder: 'Enter search terms' } }) }} <button class="btn btn-primary">GO</button>
             <div class="hidden">
                 {{ form_rest(form) }}
             </div>

@@ -27,16 +27,14 @@
 
 {% block content %}
 {% for entity in entities %}
-    <div class="row">
+    <div class="row-fluid">
 {% if entity is post %}
-    <div class="col-md-1">
-        <div class="date-posted">
-            <p class="month">{{ entity.datePublished.toUserTime.format('M') }} {% if entity.datePublished.toUserTime.format('Y') != year %}<span class="year">'{% set year = entity.datePublished.toUserTime.format('y') %}{{ year }}</span>{% endif %}</p>
-            <p class="day">{{ entity.datePublished.toUserTime.format('d') }}</p>
-        </div>
+    <div class="span1 date-posted">
+        <p class="month">{{ entity.datePublished.toUserTime.format('M') }} {% if entity.datePublished.toUserTime.format('Y') != year %}<span class="year">'{% set year = entity.datePublished.toUserTime.format('y') %}{{ year }}</span>{% endif %}</p>
+        <p class="day">{{ entity.datePublished.toUserTime.format('d') }}</p>
     </div>
 {% endif %}
-    <div class="{{ entity is post ? 'col-md-11' : 'col-md-12' }}">
+    <div class="{{ entity is post ? 'span11' : 'span12' }}">
     {% if loop.first %}
 <h1>{{ entity.title }}{% if entity.hasMenu %}{{ render_menu(entity.menu) }}{% endif %}</h1>
     {% else %}

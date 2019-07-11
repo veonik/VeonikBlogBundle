@@ -25,13 +25,14 @@ class TagRepository extends EntityRepository
         } else {
             $join = 'JOIN posts_tags pt ON pt.tag_id = t.id ';
         }
-        
+
+        $cmp = $this->_em->getConnection()->getDatabasePlatform()->convertBooleansToDatabaseValue(true);
         $stmt = $this->_em->getConnection()->executeQuery(
             "SELECT t.id FROM tags t 
                   {$join}
                   JOIN posts p ON pt.post_id = p.id 
-                WHERE p.active = TRUE 
-                  AND t.active = TRUE
+                WHERE p.active = ${cmp}
+                  AND t.active = ${cmp}
                 GROUP BY t.id
                 ORDER BY COUNT(p.id) DESC
                 LIMIT 10"
